@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Concert+One&family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Square+Peg&family=Teko:wght@300&family=Yanone+Kaffeesatz:wght@200;300&display=swap');
+
+
+/*
+font-family: 'Bangers', cursive;
+font-family: 'Concert One', cursive;
+font-family: 'Luckiest Guy', cursive;
+font-family: 'Anton', sans-serif;
+font-family: 'Crimson Text', serif;
+font-family: 'Square Peg', cursive;
+font-family: 'Teko', sans-serif;
+font-family: 'Yanone Kaffeesatz', sans-serif;
+*/
+
+/*ALL SECTIONS STYLES*/
+html{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    width: 100%;
+    margin: auto;
+    max-width: 500px;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+    
+}
+
+header{
+    display: flex;
+    /*position: sticky;
+    z-index: 999;*/
+    top: 0.1px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-family: 'Concert One', cursive;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    background-color: azure;
+
+    
+}
+main{
+    width: 100%;
+    margin-top: 2rem;
+    
+}
+
+.totales{
+    display: flex;
+    justify-content: space-around;
+    background-color: #28ed5c;
+    width: 90%;
+    padding: 1rem;
+    /*height: 10rem;*/
+
+    font-weight: 600;
+    
+}
+#valores{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+    
+}
+#valores input{
+    width: 5rem;
+    height: 2rem;
+    text-align: center;
+    border: transparent;
+}
+
+#botones{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+    
+}
+#botones button{
+    display: flex;
+    justify-content: center;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+    width: 5rem;
+    height: 2rem;
+    border: 0.5px;
+    align-items: center;
+    
+}
+
+#productos{
+    display: flex;
+    
+}
+
+#lista{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+}
+
+.articulo{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    font-weight: 700;
+}
+
+.articulo input{
+    margin: 0.3rem 0;
+}
+/*ESTILOS SUPERAPP SIMPLE*/
+#botones #guardar, 
+#botones #guardar-cambios,
+#botones #cerrar,
+#botones #borrar-local
+{
+    display: none;
+}
+
+#botones #mostrar{
+    display: flex;
+}
+
+
+
+.list{
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+    height: auto;
+    min-width: 300px;
+    max-width: 500px;
+    margin: auto;
+    
+}
+.list-header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 5vh;
+    color: black;
+    font-weight: bold;
+    background-color: #28ed5c;
+} 
+
+label[for*="text"]{
+    width: 95%;
+    border-bottom: 1px solid #28ed5c;
+    text-align: center;
+}
+label[for*="price"]{
+    width: 10%;
+    border-bottom: 1px solid #28ed5c;
+    margin-left: 1rem;
+    text-align: center;
+
+}
+
+
+.list-footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 5vh;
+    background-color: #28ed5c;
+    
+
+}
+.items{
+    display: flex;
+    width: 100%;
+    background-color: white;
+    margin: 0.5rem 0;
+}
+
+.item{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid #28ed5c;
+
+}
+.item-description{
+    width: 100%;
+    height: 1.5rem;
+    border: transparent;
+    outline-color: transparent;
+    text-overflow: ellipsis;
+
+}
+.checkbox, .precio{
+    width: 2rem;
+    height: 2rem;
+    
+}
+.price{
+    width: 40px;
+    height: 24px;
+    border: 0.2px solid gray;
+    border-radius: 4px;
+    text-align: center;
+    
+}
+
+.price::-webkit-inner-spin-button{
+    appearance: none;
+}
+
+
+.item-description:focus{
+    background-color: darkturquoise;
+
+}
+
+
+img[src*="trash"]{
+    width: 40px;
+    height: 40px;
+}
+img{
+    width: 25px;
+    height: 25px;
+}
+
+#depts{
+    width: 95%;
+    height: auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.3rem;
+    display: flex;
+    overflow: auto;
+    
+}
+
+.aisles{
+    list-style: none;
+    width:auto;
+
+    border: 1px solid gray;
+    border-top-right-radius: 1rem;
+    padding:0.3rem;
+    background-color: #28ed5c;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.aisles:hover{
+    transform: translate(1px,-2px);
+    
+}
+
+.aisles span{
+    width: 30px;
+    background-color: azure;
+}
+
+
+.board{
+    display: flex;
+    flex-wrap: wrap;
+    width: 24vw;
+    height: 50vh;
+    background-image: url(./images/Sin\ título.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 1rem;
+    
+}
+
+/*STYLE WHEN THE LIST BECOME A POST-PAPER*/
+
+.list-test{
+    display: flex;
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+    background-color: white;
+    flex-direction: column;
+    width: 30%;
+    height: 30%;
+    border-radius: 0.2rem;
+    overflow: hidden;
+
+}
+.list-header-test{
+    width: 100%;
+    height: 2rem;
+    font-weight: bold;
+    background-color: #28ed5c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.list-header-test .label[for*='price']{
+    display: none;
+}
+
+.item-test .checkbox, .item-test .price{
+    display: none;
+
+
+}
+
+.item-test input {
+    width: 100%;
+    height: 1rem;
+}
+
+.list-footer-test img{
+    display: none;
+}
