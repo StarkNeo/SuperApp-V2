@@ -140,15 +140,17 @@ main{
 .board{
     display: flex;
     flex-wrap: wrap;
-    width: 50vw;
-    height: 50vh;
+    /*width: 50vw;*/
+    height: 100vh;
     background-image: url(./images/Sin\ título.png);
     background-repeat: no-repeat;
     background-size: cover;
     padding: 1rem;
     border-radius: 0.5rem 0.5rem;
-    overflow: scroll;
+    overflow: hidden;
     max-width: 500px;
+    max-height: 500px;
+    
 }
 
 
@@ -160,12 +162,14 @@ main{
     flex-direction: column;
     /*justify-content: space-between;*/
     position: absolute;
-    width: 95vw;
+    width: 100%;
     height: auto;
     min-width: 300px;
-    max-width: 500px;
-    margin: auto;
+    max-width: 480px;
+    max-height: 500px;
     background-color: aliceblue;
+    z-index: 999;
+    overflow-y: auto;
 }
 
 
