@@ -67,10 +67,10 @@ class Bolsa {
 
 //FUNCION PARA CARGAR ELEMENTOS ALMACENADOS EN EL LOCALSTORAGE
 
-const cargar = (bags)=>{
+const cargar = (carrito)=>{
     console.log(bags);
-    //let seccion = document.querySelector('.board');
-    //seccion.appendChild();
+    let seccion = document.querySelector('.board');
+    carrito.forEach(element=>console.log(element))
 }
 
 //FUNCION PARA AGREGAR UN DEPARTAMENTO
@@ -148,7 +148,7 @@ const minimizar = (e) => {
 
 
 const maximizar = (e) => {
-    
+    console.log(e);
     let elementClass = e.target.className;
 
     if (elementClass === 'bag-min') {
