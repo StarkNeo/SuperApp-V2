@@ -8,7 +8,7 @@ const boton_crear = document.getElementById('boton-crear');
 const guardar_cambios = document.getElementById('guardar-cambios');
 const borrar_lista = document.getElementById('borrar-local');
 
-let bags=[]; //CONTIENE LOS POSTITS CREADOS PARA CARGARLOS EN LA PAGINA
+
 let carrito = [];
 
 if (localStorage.length != 0) {
@@ -67,20 +67,129 @@ class Bolsa {
 
 //FUNCION PARA CARGAR ELEMENTOS ALMACENADOS EN EL LOCALSTORAGE
 
-const cargar = (carrito)=>{
+const cargarPostits = () => {
+
+    carrito.forEach(element => crearPost(element))
+}
+
+//FUNCION PARA AGREGAR UN DEPARTAMENTO
+
+function crearPost(elemento) {
+    console.log(elemento);
+    let seccion = document.querySelector('.board');
+
+    let bag = document.createElement('div');
+    bag.className = 'bag-min';
+
+    //seccion header
+    let bagHeader = document.createElement('div');
+    bagHeader.className = 'bag-header-min';
+    bagHeader.innerHTML = `
+        <h3 class='nameDepto'>${elemento.nombre}</h3>    
+        <label class="label" for="text" style="display:none">
+                Descripcion
+        </label>
+        <label class="label" for="price" style="display:none">
+                Importe
+        </label>
+        
+    
+    `
+    //seccion items
+    let bagItems = document.createElement('div');
+    bagItems.className = 'items-min';
+    let arrayArticulos = elemento.articulos;
+    console.log(arrayArticulos);
+    arrayArticulos.forEach(element => {
+        let nvoItem = document.createElement('div');
+        let precio =parseFloat(element.precio);
+        console.log(precio);
+        nvoItem.className = 'item-min';
+        nvoItem.innerHTML = `
+        <input type="checkbox" name="box" class="checkbox">
+            <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description" value="${element.nombre}">
+            <input type="number" name="price" placeholder="10.5" class="price" min="0" required onchange="sumaPres()" value="${precio}">
+            <button class="add">+</button>
+            <button class="del">-</button>
+        
+        `
+        bagItems.appendChild(nvoItem);
+    });
+
+
+    //seccion footer
+    let bagFooter = document.createElement('div');
+    bagFooter.className = 'bag-footer-min';
+    bagFooter.innerHTML = `
+            <img class="close-window" src="./images/close.svg" alt="">
+            <img class="delete-item" src="./images/icon-trash-normal.svg" alt="check">
+            <img class="add-item" src="./images/check-solid.svg" alt="">
+    `
+
+    bag.appendChild(bagHeader);
+    bag.appendChild(bagItems);
+    bag.appendChild(bagFooter);
+
+    seccion.appendChild(bag);
+
+
+}
+
+
+
+//FUNCION PARA CARGAR ELEMENTOS ALMACENADOS EN EL LOCALSTORAGE
+
+const cargar = (carrito) => {
     console.log(bags);
     let seccion = document.querySelector('.board');
-    carrito.forEach(element=>console.log(element))
+    carrito.forEach(element => console.log(element))
 }
 
 //FUNCION PARA AGREGAR UN DEPARTAMENTO
 
 function agregarDepto() {
     let seccion = document.querySelector('.board');
-    let depto = prompt("Introduzca un nombre");
-    let bag=document.createElement('div');
-    bag.className='bag';
-    bag.innerHTML=`
+
+    //console.log(carrito.indexOf(carrito.nombre === depto));
+    let validar;
+    let depto;
+
+    //VALIDAR SI EL CARRITO ESTA VACIO OMITE EL CICLO WHILE   
+    if (carrito.length === 0) {
+
+        validar = false;
+        depto = prompt("Introduzca un nombre para el departamento");
+    }
+
+    else validar = true;
+
+    //SI EL CARRITO CONTIENE ELEMENTOS ENTRAR AL CICLO PARA VALIDAR QUE NO SE REPITAN LOS NOMBRES DEL DEPTO.
+    while (validar === true) {
+        depto = prompt("Introduzca un nombre para el departamento");
+        console.log(depto);
+
+        for (const key in carrito) {
+            if (carrito[key].nombre === depto) {
+                console.log(carrito[key].nombre);
+                validar = true;
+                alert('Ya existe un departamento con ese nombre')
+                break
+            }
+            else {
+                console.log(carrito[key].nombre);
+                validar = false;
+            }
+
+        }
+
+        console.log(validar);
+    }
+
+
+
+    let bag = document.createElement('div');
+    bag.className = 'bag';
+    bag.innerHTML = `
     <div class="bag-header">
         <h3 class='nameDepto'>${depto}</h3>    
         <label class="label" for="text">
@@ -94,7 +203,7 @@ function agregarDepto() {
             <div class="item">
                 <input type="checkbox" name="box" class="checkbox">
                 <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description">
-                <input type="number" name="price" placeholder="10.5" class="price" min="0" required onchange="sumaPres()">
+                <input type="number" name="price" placeholder="10.5" class="price" min="0" onchange="sumaPres()" value="0" required >
                 <button class="add">+</button>
                 <button class="del">-</button>
             </div>
@@ -108,12 +217,11 @@ function agregarDepto() {
     
     `
     seccion.appendChild(bag);
-    
-    boton_Guardar.style.display = 'unset';
+
 
 }
 
-
+/*
 //FUNCION PARA GUARDAR POSTITS EN EL STORAGE Y CARGARLOS EN PAGINA
 const recBags =()=>{
     let postIts = document.getElementsByClassName('bag-min');
@@ -128,10 +236,10 @@ const recBags =()=>{
 
 } 
 
-
+*/
 
 //FUNCION MINIMIZAR QUE ACTUA SOBRE EL BOTON CERRAR
-
+/*
 const minimizar = (e) => {
     e.path[2].className = 'bag-min';
     //CAMBIA LA CLASE DEL ENCABEZADO, Y OCULTA LAS ETIQUETAS DESCRIPCION Y PRECIO
@@ -145,8 +253,30 @@ const minimizar = (e) => {
     e.path[2].childNodes[3].className = 'item-min';
 
 }
+*/
+const minimizar = (e) => {
+    console.log(e);
+    e.path[2].className = 'bag-min';
+    //CAMBIA LA CLASE DEL ENCABEZADO, Y OCULTA LAS ETIQUETAS DESCRIPCION Y PRECIO
+    e.path[2].children[0].className = 'bag-header-min';
+    e.path[2].children[0].children[1].style.display = 'none';
+    e.path[2].children[0].children[2].style.display = 'none';
+    e.path[2].children[1].className = 'items-min';
+    let items = e.path[2].children[1].children;
+    console.log(items);
+    for (let index = 0; index < items.length; index++) {
+
+        items[index].className = 'item-min';
+    }
+    //OCULTA EL FOOTER
+    e.path[2].children[2].className = 'bag-footer-min';
+    //OCULTA LOS ITEMS DEL DEPTO
+    //e.path[2].children[1].children[1].className = 'item-min';
+
+}
 
 
+/*
 const maximizar = (e) => {
     console.log(e);
     let elementClass = e.target.className;
@@ -179,6 +309,62 @@ const maximizar = (e) => {
     }
 
 }
+*/
+const maximizar = (e) => {
+    console.log(e);
+    let elementClass = e.target.className;
+
+    if (elementClass === 'bag-min') {
+        e.path[0].className = 'bag';
+        e.path[0].children[0].className = 'bag-header';
+        e.path[0].children[0].children[1].style.display = 'flex';
+        e.path[0].children[0].children[2].style.display = 'flex';
+        e.path[0].children[1].className = 'items';
+        let items = e.path[0].children[1].children;
+        console.log(items);
+        for (let index = 0; index < items.length; index++) {
+
+            items[index].className = 'item';
+        }
+        e.path[0].children[2].className = 'bag-footer';
+    }
+    else if (elementClass === 'nameDepto') {
+        e.path[2].className = 'bag';
+        e.path[2].children[0].className = 'bag-header';
+        e.path[2].children[0].children[1].style.display = 'flex';
+        e.path[2].children[0].children[2].style.display = 'flex';
+        e.path[2].children[1].className = 'items';
+        let items = e.path[2].children[1].children;
+        console.log(items);
+        for (let index = 0; index < items.length; index++) {
+
+            items[index].className = 'item';
+        }
+
+        e.path[2].children[2].className = 'bag-footer';
+    }
+
+    else if (elementClass === 'bag-header-min') {
+        e.path[1].className = 'bag';
+        e.path[1].children[0].className = 'bag-header';
+        e.path[1].children[0].children[1].style.display = 'flex';
+        e.path[1].children[0].children[2].style.display = 'flex';
+        e.path[1].children[1].className = 'items';
+        let items = e.path[1].children[1].children;
+        console.log(items);
+        for (let index = 0; index < items.length; index++) {
+
+            items[index].className = 'item';
+        }
+        e.path[1].children[2].className = 'bag-footer';
+
+    }
+
+}
+
+
+
+
 
 //FUNCION QUE CREA UNA BOLSA CON ARTICULOS PARA SER GUARDADA EN EL LOCALSTORAGE
 
@@ -194,11 +380,11 @@ const guardarBolsa = (nombre, arreglo) => {
 
     }
 
-    console.log(departamento.bolsa);    
+    console.log(departamento.bolsa);
     carrito.push(departamento.bolsa);
     //carrito.push(departamento.bolsa)
 
-    localStorage.setItem('carrito',JSON.stringify(carrito));       
+    localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
 
@@ -207,20 +393,47 @@ const guardarBolsa = (nombre, arreglo) => {
 //FUNCION QUE TOMA LA INFORMACION DE LOS ITEMS PARA CREAR BOLSAS
 
 const guardar = (e) => {
-    let valores = [];
-
-    console.log(e);
-    let bolsaNombre = e.path[2].childNodes[1].childNodes[1].textContent;
+    console.log(carrito);
+    let bolsaNombre = e.path[2].children[0].children[0].textContent;
     console.log(bolsaNombre);
-    let bolsaItems = e.path[2].childNodes[3].children;
-    console.log(bolsaItems);
+    let validar;
 
-    for (let index = 0; index < bolsaItems.length; index++) {
-        valores.push([bolsaItems[index].childNodes[3].value, bolsaItems[index].childNodes[5].value]);
+    if(carrito.length === 0){
+        validar=false;
     }
-    console.log(valores);
-    guardarBolsa(bolsaNombre, valores)
-    e.stopPropagation;
+
+    else if (carrito.length > 0) {
+        for (const key in carrito) {
+            if (carrito[key].nombre === bolsaNombre) {
+                console.log(carrito[key]);
+                carrito[key]="AQUI VA EL REEMPLAZO";
+                console.log(carrito[key]);
+                validar = true;
+                break;
+            } else {
+                validar = false;
+            }
+        }
+    }
+
+    if (validar === false) {
+        let valores = [];
+
+        console.log(e);
+        let bolsaItems = e.path[2].children[1].children;
+        console.log(bolsaItems);
+
+        for (let index = 0; index < bolsaItems.length; index++) {
+            valores.push([bolsaItems[index].children[1].value, bolsaItems[index].children[2].value]);
+        }
+        console.log(valores);
+        guardarBolsa(bolsaNombre, valores)
+        e.stopPropagation;
+
+
+
+    }
+
 }
 
 //AGREGAR ITEM EN LA BOLSA CORRESPONDIENTE
@@ -250,21 +463,53 @@ const sumaPres = () => {
     for (let index = 0; index < inputPrecios.length; index++) {
         console.log(inputPrecios[index].value);
         //sumaArreglo += parseFloat(inputPrecios[index].value);
-        sumaArreglo+=parseFloat(inputPrecios[index].value);
+        sumaArreglo += parseFloat(inputPrecios[index].value);
     }
+    console.log(sumaArreglo);
     totalPresupuesto.value = sumaArreglo.toFixed(2);
-    return sumaArreglo;
+    
 }
 
 
-const sumaLista = ()=>{
+const sumaLista = () => {
     let total = document.getElementById('total-pres');
     let sumatoria = 0;
-    carrito.forEach(element =>{
-        sumatoria+=element.articulos[1].precio;
+    carrito.forEach(element => {
+        sumatoria += element.articulos[1].precio;
     })
     total.value = sumatoria;
 }
+
+
+//FUNCION PARA ELIMINAR UN DEPARTAMENTO
+const eliminar = e => {
+
+    console.log(e);
+    let parent = e.path[2];
+    let bagName = e.path[2].children[0].children[0].textContent;
+
+    console.log(parent);
+    let granParent = parent.parentNode;
+    console.log(granParent);
+    console.log(bagName);
+    console.log(carrito.indexOf(bagName));
+    granParent.removeChild(parent);
+
+    /*
+    
+    let parentUl = parentLi.parentNode;
+    parentUl.removeChild(parentLi);
+    sumaPres();
+    sumaReal();
+    */
+}
+
+console.log(carrito.find(element => element.nombre === 'HEB'));
+
+const borrarLista = () => {
+    localStorage.removeItem('carrito');
+}
+
 
 //EVENTOS
 document.addEventListener('click', e => {
@@ -279,8 +524,8 @@ document.addEventListener('click', e => {
     }
 
     //ELIMINAR UN DEPARTAMENTO
-    else if (btnTarget.value === '-') {
-        eliminar(btnTarget);
+    else if (btnTarget.className === 'delete-item') {
+        eliminar(e);
     }
 
     //AGREGAR UN ITEM DENTRO DEL DEPARTAMENTO
@@ -290,7 +535,8 @@ document.addEventListener('click', e => {
 
     //MINIMIZAR BOLSA
     else if (btnTarget.className === 'close-window') {
-        minimizar(e)
+        guardar(e);
+        minimizar(e);
     }
 
     //MAXIMIZAR BOLSA
@@ -300,35 +546,15 @@ document.addEventListener('click', e => {
 
     //REVISA EL CARRITO
 
-    else if(btnTarget.id === 'cart'){
+    else if (btnTarget.id === 'cart') {
         open('carrito.html');
-        /*
-        let lista = document.createElement('div');
-        
-        lista.id='revision';
 
-        carrito.forEach(element=>{
-            let campo = document.createElement('p');
-            console.log(element);
-            let nombre = element.nombre;
-            let articulo = element.articulos[0].nombre;
-            let precio = element.articulos[1].precio;
-            campo.innerHTML = `
-            
-            ${nombre}
-            ${articulo}
-            ${precio}
-
-
-            `
-            lista.appendChild(campo);
-        
-        });
-        document.body.appendChild(lista);
-        */
     }
 
-    
+
+
+
+
 })
 
 
@@ -340,15 +566,6 @@ document.addEventListener('click', e => {
 
 /*
 
-//FUNCION PARA ELIMINAR UN DEPARTAMENTO
-const eliminar = e => {
-    let parentLi = e.parentNode;
-    let parentUl = parentLi.parentNode;
-    parentUl.removeChild(parentLi);
-    sumaPres();
-    sumaReal();
-
-}
 
 
 

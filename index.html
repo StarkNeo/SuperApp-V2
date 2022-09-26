@@ -22,11 +22,9 @@
                 
             </div>
             <div id="botones">
-                <button id="guardar" onclick="guardar()">Guardar</button>
-                <button id="mostrar" onclick="obtenerLocal()">Mostrar Lista</button>
-                <button id="guardar-cambios" onclick="recBags()">Guardar Cambios</button>
-                <button id="cerrar">Cerrar</button>
+                <button id="mostrar" onclick="cargarPostits()">Mostrar Lista</button>
                 <button id="borrar-local" onclick="borrarLista()">Borrar lista</button>
+                <input id="boton-crear" type="button" value="(+) Agregar Depto">
             </div>
 
         </div>
@@ -37,8 +35,9 @@
     </header>
     <main>
         <div id="board-head">
-            <input id="boton-crear" type="button" value="(+) Agregar Depto">
             <span>Board</span>
+            
+            
         </div>
 
         <div class="board">

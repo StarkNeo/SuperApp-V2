@@ -19,9 +19,8 @@ console.log(carrito);
 
 //FUNCION PARA CARGAR ELEMENTOS ALMACENADOS EN EL LOCALSTORAGE
 
-const cargar = ()=>{
+const cargarPostits = ()=>{
     console.log(bags);
-    let seccion = document.querySelector('.board');
     carrito.forEach(element=>crearPost(element))
 }
 

@@ -103,11 +103,26 @@ header{
 #botones #guardar-cambios,
 #botones #cerrar,
 #botones #mostrar,
-#botones #borrar-local
+#botones #borrar-local, #boton-crear
 {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
 }
 
+@media only screen and (max-width:474px){
+    #botones #guardar, 
+#botones #guardar-cambios,
+#botones #cerrar,
+#botones #mostrar,
+#botones #borrar-local {
+        width: 50px;
+        height: 30px;
+        
+        
+    }
+}
 /*******************MAIN STYLES********************/
 
 main{
@@ -122,6 +137,7 @@ main{
 /*SPACE WHERE WE POST EACH LIST*/
 #board-head{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 35%;
@@ -147,7 +163,7 @@ main{
     background-size: cover;
     padding: 1rem;
     border-radius: 0.5rem 0.5rem;
-    overflow: hidden;
+    overflow-y: auto;
     max-width: 500px;
     max-height: 500px;
     
@@ -162,9 +178,9 @@ main{
     flex-direction: column;
     /*justify-content: space-between;*/
     position: absolute;
-    width: 100%;
+    width: 450px;
     height: auto;
-    min-width: 300px;
+    /*min-width: 300px;*/
     max-width: 480px;
     max-height: 500px;
     background-color: aliceblue;
@@ -172,7 +188,12 @@ main{
     overflow-y: auto;
 }
 
-
+@media only screen and (max-width:490px){
+    .bag{
+        width: 90%;
+        
+    }
+}
 .bag-header{
     display: grid;
     grid-template: auto auto / 70% 30%;
@@ -324,6 +345,13 @@ img{
     cursor: pointer;
     
 }
+@media only screen and (max-width:490px){
+    .bag-min{
+        height: 20%;
+        
+    }
+}
+
 
 .bag-min:hover{
     transform: translateY(-1px);
