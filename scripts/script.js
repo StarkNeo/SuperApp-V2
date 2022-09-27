@@ -156,8 +156,9 @@ function agregarDepto() {
 
         validar = false;
         depto = prompt("Introduzca un nombre para el departamento");
+        console.log(typeof depto);
     }
-
+    
     else validar = true;
 
     //SI EL CARRITO CONTIENE ELEMENTOS ENTRAR AL CICLO PARA VALIDAR QUE NO SE REPITAN LOS NOMBRES DEL DEPTO.
@@ -218,39 +219,7 @@ function agregarDepto() {
 
 }
 
-/*
-//FUNCION PARA GUARDAR POSTITS EN EL STORAGE Y CARGARLOS EN PAGINA
-const recBags =()=>{
-    let postIts = document.getElementsByClassName('bag-min');
-    for (let index = 0; index < postIts.length; index++) {
-        console.log(postIts[index]);    
-        bags.push(postIts[index]);  
-    }
-    
-    localStorage.setItem('bags',JSON.stringify(bags));    
-    
 
-
-} 
-
-*/
-
-//FUNCION MINIMIZAR QUE ACTUA SOBRE EL BOTON CERRAR
-/*
-const minimizar = (e) => {
-    e.path[2].className = 'bag-min';
-    //CAMBIA LA CLASE DEL ENCABEZADO, Y OCULTA LAS ETIQUETAS DESCRIPCION Y PRECIO
-    e.path[2].childNodes[1].className = 'bag-header-min';
-    e.path[2].childNodes[1].childNodes[3].style.display = 'none';
-    e.path[2].childNodes[1].childNodes[5].style.display = 'none';
-    e.path[2].childNodes[3].className = 'items-min';
-    //OCULTA EL FOOTER
-    e.path[2].childNodes[5].className = 'bag-footer-min';
-    //OCULTA LOS ITEMS DEL DEPTO
-    e.path[2].childNodes[3].className = 'item-min';
-
-}
-*/
 const minimizar = (e) => {
     console.log(e);
     e.path[2].className = 'bag-min';
@@ -525,6 +494,7 @@ const eliminar = e => {
 
 const borrarLista = () => {
     localStorage.removeItem('carrito');
+    location.reload();
 }
 
 
@@ -763,3 +733,5 @@ const borrarLista = () => {
     boton_Mostrar.style.display = 'flex';
 }
 */
+
+window.onload=cargarPostits();
