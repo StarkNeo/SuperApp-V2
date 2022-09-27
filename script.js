@@ -19,10 +19,6 @@ if (localStorage.getItem('bags') != null) {
     bags = JSON.parse(localStorage.getItem('bags'));
 }
 
-console.log(localStorage.getItem('bags'));
-
-console.log(carrito);
-
 
 
 
@@ -70,6 +66,7 @@ class Bolsa {
 const cargarPostits = () => {
 
     carrito.forEach(element => crearPost(element))
+    sumarCarro();
 }
 
 //FUNCION PARA AGREGAR UN DEPARTAMENTO
@@ -102,7 +99,7 @@ function crearPost(elemento) {
     console.log(arrayArticulos);
     arrayArticulos.forEach(element => {
         let nvoItem = document.createElement('div');
-        let precio =parseFloat(element.precio);
+        let precio = parseFloat(element.precio);
         console.log(precio);
         nvoItem.className = 'item-min';
         nvoItem.innerHTML = `
@@ -186,7 +183,7 @@ function agregarDepto() {
     }
 
 
-
+    let valor = parseFloat(0);
     let bag = document.createElement('div');
     bag.className = 'bag';
     bag.innerHTML = `
@@ -203,7 +200,7 @@ function agregarDepto() {
             <div class="item">
                 <input type="checkbox" name="box" class="checkbox">
                 <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description">
-                <input type="number" name="price" placeholder="10.5" class="price" min="0" onchange="sumaPres()" value="0" required >
+                <input type="number" name="price" placeholder="10.5" class="price" min="0" onchange="sumaPres()" value="${valor}" required >
                 <button class="add">+</button>
                 <button class="del">-</button>
             </div>
@@ -395,32 +392,53 @@ const guardarBolsa = (nombre, arreglo) => {
 const guardar = (e) => {
     console.log(carrito);
     let bolsaNombre = e.path[2].children[0].children[0].textContent;
+    let valores = [];
+    let bolsaItems = e.path[2].children[1].children;
+    let validar; //VALIDA SI EL CARRITO SE ENCUENTRA VACIO
+    let articulos = []; //ARREGLO DE ARTICULOS PARA ACTUALIZACION
     console.log(bolsaNombre);
-    let validar;
-
-    if(carrito.length === 0){
-        validar=false;
+    console.log(bolsaItems);
+    //SI EL CARRITO ESTA VACIO variable VALIDAR = true y  EJECUTA LINEA 422
+    if (carrito.length === 0) {
+        validar = true;
     }
-
+    //SI EL CARRITO NO ESTA VACIO, ENTONCES, VALIDA SI ELEMENTO YA EXISTE EN EL Y ACTUALIZALO
     else if (carrito.length > 0) {
         for (const key in carrito) {
             if (carrito[key].nombre === bolsaNombre) {
                 console.log(carrito[key]);
-                carrito[key]="AQUI VA EL REEMPLAZO";
-                console.log(carrito[key]);
-                validar = true;
+                let index = carrito.indexOf(carrito[key]);
+                for (let i = 0; i < bolsaItems.length; i++) {
+                    let articulo = {
+                        nombre: bolsaItems[i].children[1].value,
+                        precio: bolsaItems[i].children[2].value
+                    }
+
+                    articulos.push(articulo);
+
+                }
+                console.log(articulos);
+                console.log(index);
+                carrito[index]={
+                    nombre: bolsaNombre,
+                    articulos: articulos
+                }
+                //carrito[key]="AQUI VA EL REEMPLAZO";
+                console.log(carrito);
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                validar = false; //SI YA EXISTE, NO EJECUTA PROCESO DE LA LINEA 422
                 break;
             } else {
-                validar = false;
+                validar = true;
             }
         }
     }
+    //LINEA 422 TOMA LOS ARTICULOS EN LA BOLSA Y SU NOMBRE, Y PASALOS A LA FUNCION guardarBolsa 
+    if (validar === true) {
+        //let valores = [];
 
-    if (validar === false) {
-        let valores = [];
+        //let bolsaItems = e.path[2].children[1].children;
 
-        console.log(e);
-        let bolsaItems = e.path[2].children[1].children;
         console.log(bolsaItems);
 
         for (let index = 0; index < bolsaItems.length; index++) {
@@ -467,7 +485,7 @@ const sumaPres = () => {
     }
     console.log(sumaArreglo);
     totalPresupuesto.value = sumaArreglo.toFixed(2);
-    
+
 }
 
 
@@ -504,7 +522,6 @@ const eliminar = e => {
     */
 }
 
-console.log(carrito.find(element => element.nombre === 'HEB'));
 
 const borrarLista = () => {
     localStorage.removeItem('carrito');
@@ -559,7 +576,32 @@ document.addEventListener('click', e => {
 
 
 
+const sumarCarro=()=>{
+    let arrayValores =[] 
+    let sumaTotal=0;
+    let totalPres =document.getElementById('total-pres');
+    for(const key in carrito) {
+        arrayValores.push(carrito[key].articulos)
 
+    }
+
+    console.log(arrayValores);
+
+    for (const key in arrayValores) {
+        arrayValores[key].forEach(element=>sumaTotal+=JSON.parse(element.precio));
+    }
+    
+    console.log(sumaTotal);
+    totalPres.value=sumaTotal;
+    
+    /*
+    let sumaTotal = 0;
+    carrito.forEach(element =>{
+        console.log(element);
+        console.log(element.articulos);
+        console.log(element.articulos.precio);
+    })*/
+}
 
 
 
