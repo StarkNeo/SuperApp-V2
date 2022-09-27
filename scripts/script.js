@@ -9,18 +9,26 @@ const guardar_cambios = document.getElementById('guardar-cambios');
 const borrar_lista = document.getElementById('borrar-local');
 
 
-let carrito = [];
+let carrito;
 
+console.log(localStorage.getItem('carrito'));
+/*
 if (localStorage.length != 0) {
+    
     carrito = JSON.parse(localStorage.getItem('carrito'));
 }
 
 if (localStorage.getItem('bags') != null) {
     bags = JSON.parse(localStorage.getItem('bags'));
 }
+*/
+if (localStorage.getItem('carrito') === null) {
+    carrito = [];
+} else {
+    carrito = JSON.parse(localStorage.getItem('carrito'));
+}
 
-
-
+console.log(carrito);
 
 class Bolsa {
     constructor(nombre) {
