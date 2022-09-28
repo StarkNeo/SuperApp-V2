@@ -11,32 +11,40 @@
 
 <body>
     
-    <h2>SUPERAPP</h2>
-        <img id="cart" src="./images/cart-shopping-solid.svg" alt="">
-        
-        <h3>Total</h3>
         
     <header>
+        <h2>SUPERAPP</h2>
+        <img id="cart" src="./images/cart-shopping-solid.svg" alt="">
+        
+        
+    
         <div class="totales">
-            <div id="valores">
-                <label for="total-pres">Presupuesto Actual</label>
-                <input type="number" name="" id="total-pres" value="0" placeholder="Total Presupuestado" disabled>
-                
-            </div>
-            <div id="botones">
-                <button id="borrar-local" onclick="borrarLista()">Borrar lista</button>
-                <input id="boton-crear" type="button" value="(+) Agregar Depto">
-            </div>
-
+            <label for="total-pres">
+                <figure>
+                    <img src="./images/sack-dollar-solid.svg" alt="">
+                    <figcaption>Total $</figcaption>
+                </figure>
+                </label>
+            <input type="number" name="" id="total-pres" value="0" placeholder="Total Presupuestado" disabled>
+            
         </div>
-        <h4>Productos</h4>
+       
 
 
 
     </header>
     <main>
         <div id="board-head">
-            <span>Board</span>
+            <figure>
+                <img id="borrar-local" onclick="borrarLista()" src="./images/clipboard-regular.svg" alt="" aria-placeholder="vaciar">
+                <figcaption>Vaciar ClipBoard</figcaption>
+            </figure>
+            <figure>
+                <img id="boton-crear" src="./images/paste-solid.svg" alt="">
+                <figcaption>Crear Nota</figcaption>
+            </figure>
+            
+            
             
             
         </div>
@@ -48,6 +56,11 @@
 
         
     </main>
+    <footer>
+        <span>SUPERAPP Version 2.0</span>
+        <span>By Jesus Hernandez</span> 
+        <span><a href="mailto:jesushdzusa@gmail.com">Contact</a></span>
+    </footer>
     <script src="./scripts/script.js"></script>
 </body>
 

@@ -443,10 +443,10 @@ const agregarItem = (element) => {
 
 //BORRAR ITEM DE LA BOLSA CORRESPONDIENTE
 
-const borrarItem=(btnTarget)=>{
+const borrarItem=(e)=>{
         
         let granParent= e.path[2];
-        let nodeTarget = btnTarget.parentNode; 
+        let nodeTarget = e.target.parentNode; 
         console.log(e);
         console.log(nodeTarget);
         granParent.removeChild(nodeTarget);
@@ -482,16 +482,29 @@ const sumaLista = () => {
 //FUNCION PARA ELIMINAR UN DEPARTAMENTO
 const eliminar = e => {
 
+    //BORRARLO DE LA PAGINA
     console.log(e);
     let parent = e.path[2];
+    let granParent = parent.parentNode;
+    granParent.removeChild(parent);
+
+    //BORRARLO DEL CARRITO
     let bagName = e.path[2].children[0].children[0].textContent;
 
-    console.log(parent);
-    let granParent = parent.parentNode;
-    console.log(granParent);
     console.log(bagName);
-    console.log(carrito.indexOf(bagName));
-    granParent.removeChild(parent);
+    for (const key in carrito) {
+        if (carrito[key].nombre === bagName) {
+            console.log(carrito[key]);
+            let indice = carrito.indexOf(carrito[key]) //MUESTRA EL INDICE DONDE ENCONTRASTE LA COINCIDENCIA
+            //ELIMINAR EL ELEMENTO UBICADO EN EL INDICE DE LA LINEA ANTERIOR
+            carrito.splice(indice,1);
+            localStorage.setItem('carrito',JSON.stringify(carrito));
+            location.reload();
+            break;    
+        }
+        
+    }
+
 
     /*
     
@@ -517,7 +530,7 @@ document.addEventListener('click', e => {
         guardar(e);
     }
     //AGREGAR UN DEPARTAMENTO
-    else if (btnTarget.value === '(+) Agregar Depto') {
+    else if (btnTarget.id === 'boton-crear') {
         agregarDepto();
     }
 
@@ -534,7 +547,7 @@ document.addEventListener('click', e => {
     //ELIMINAR UN ITEM DENTRO DEL DEPTO
 
     else if(btnTarget.className === 'del'){
-        borrarItem(btnTarget);
+        borrarItem(e);
         
     }
 
@@ -552,7 +565,7 @@ document.addEventListener('click', e => {
     //REVISA EL CARRITO
 
     else if (btnTarget.id === 'cart') {
-        open('carrito.html');
+        //open('carrito.html');
 
     }
 
