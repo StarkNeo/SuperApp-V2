@@ -11,7 +11,7 @@ const borrar_lista = document.getElementById('borrar-local');
 
 let carrito;
 
-console.log(localStorage.getItem('carrito'));
+//console.log(localStorage.getItem('carrito'));
 /*
 if (localStorage.length != 0) {
     
@@ -28,7 +28,7 @@ if (localStorage.getItem('carrito') === null) {
     carrito = JSON.parse(localStorage.getItem('carrito'));
 }
 
-console.log(carrito);
+//console.log(carrito);
 
 class Bolsa {
     constructor(nombre) {
@@ -80,7 +80,7 @@ const cargarPostits = () => {
 //FUNCION PARA AGREGAR UN DEPARTAMENTO
 
 function crearPost(elemento) {
-    console.log(elemento);
+    //console.log(elemento);
     let seccion = document.querySelector('.board');
 
     let bag = document.createElement('div');
@@ -104,11 +104,11 @@ function crearPost(elemento) {
     let bagItems = document.createElement('div');
     bagItems.className = 'items-min';
     let arrayArticulos = elemento.articulos;
-    console.log(arrayArticulos);
+    //console.log(arrayArticulos);
     arrayArticulos.forEach(element => {
         let nvoItem = document.createElement('div');
         let precio = parseFloat(element.precio);
-        console.log(precio);
+        //console.log(precio);
         nvoItem.className = 'item-min';
         nvoItem.innerHTML = `
         <input type="checkbox" name="box" class="checkbox">
@@ -151,6 +151,32 @@ const cargar = (carrito) => {
 }
 
 //FUNCION PARA AGREGAR UN DEPARTAMENTO
+const validarEdicionDepto =(btnTarget)=>{
+    
+    console.log(carrito);
+    /*
+    let campoNombre = btnTarget.textContent;
+    let nuevo ='CHONITA';
+    console.log(campoNombre);
+    for (const key in carrito) {
+        
+        console.log(carrito[key]['nombre']);
+        
+        if (carrito[key].nombre === campoNombre) 
+        {
+            carrito[key]['nombre']= nuevo;
+            break;
+        } 
+        
+    }
+    
+    console.log(carrito);
+    //location.reload();
+    //eliminar(e);
+    localStorage.setItem('carrito',JSON.stringify(carrito));
+    location.reload();
+    */
+}
 
 function agregarDepto() {
     let seccion = document.querySelector('.board');
@@ -197,7 +223,7 @@ function agregarDepto() {
     bag.className = 'bag';
     bag.innerHTML = `
     <div class="bag-header">
-        <h3 class='nameDepto'>${depto}</h3>    
+        <h3 class='nameDepto'>${depto}</h3>
         <label class="label" for="text">
                 Descripcion
             </label>
@@ -244,48 +270,14 @@ const minimizar = (e) => {
     }
     //OCULTA EL FOOTER
     e.path[2].children[2].className = 'bag-footer-min';
-    //OCULTA LOS ITEMS DEL DEPTO
-    //e.path[2].children[1].children[1].className = 'item-min';
+    
 
 }
 
 
-/*
+
 const maximizar = (e) => {
-    console.log(e);
-    let elementClass = e.target.className;
-
-    if (elementClass === 'bag-min') {
-        e.path[0].className = 'bag';
-        e.path[0].childNodes[1].className = 'bag-header';
-        e.path[0].childNodes[1].childNodes[3].style.display = 'flex';
-        e.path[0].childNodes[1].childNodes[5].style.display = 'flex';
-        e.path[0].childNodes[3].className = 'items';
-        e.path[0].childNodes[5].className = 'bag-footer';
-    }
-    else if (elementClass === 'nameDepto') {
-        e.path[2].className = 'bag';
-        e.path[2].childNodes[1].className = 'bag-header';
-        e.path[2].childNodes[1].childNodes[3].style.display = 'flex';
-        e.path[2].childNodes[1].childNodes[5].style.display = 'flex';
-        e.path[2].childNodes[3].className = 'items';
-        e.path[2].childNodes[5].className = 'bag-footer';
-    }
-
-    else if (elementClass === 'bag-header-min') {
-        e.path[1].className = 'bag';
-        e.path[1].childNodes[1].className = 'bag-header';
-        e.path[1].childNodes[1].childNodes[3].style.display = 'flex';
-        e.path[1].childNodes[1].childNodes[5].style.display = 'flex';
-        e.path[1].childNodes[3].className = 'items';
-        e.path[1].childNodes[5].className = 'bag-footer';
-
-    }
-
-}
-*/
-const maximizar = (e) => {
-    console.log(e);
+    
     let elementClass = e.target.className;
 
     if (elementClass === 'bag-min') {
@@ -295,7 +287,7 @@ const maximizar = (e) => {
         e.path[0].children[0].children[2].style.display = 'flex';
         e.path[0].children[1].className = 'items';
         let items = e.path[0].children[1].children;
-        console.log(items);
+        
         for (let index = 0; index < items.length; index++) {
 
             items[index].className = 'item';
@@ -309,7 +301,7 @@ const maximizar = (e) => {
         e.path[2].children[0].children[2].style.display = 'flex';
         e.path[2].children[1].className = 'items';
         let items = e.path[2].children[1].children;
-        console.log(items);
+        
         for (let index = 0; index < items.length; index++) {
 
             items[index].className = 'item';
@@ -449,6 +441,17 @@ const agregarItem = (element) => {
     elementGrand.appendChild(nvoItem);
 }
 
+//BORRAR ITEM DE LA BOLSA CORRESPONDIENTE
+
+const borrarItem=(btnTarget)=>{
+        
+        let granParent= e.path[2];
+        let nodeTarget = btnTarget.parentNode; 
+        console.log(e);
+        console.log(nodeTarget);
+        granParent.removeChild(nodeTarget);
+}
+
 //FUNCION PARA SUMAR
 const sumaPres = () => {
     let inputPrecios = document.getElementsByClassName('price');
@@ -528,6 +531,13 @@ document.addEventListener('click', e => {
         agregarItem(btnTarget)
     }
 
+    //ELIMINAR UN ITEM DENTRO DEL DEPTO
+
+    else if(btnTarget.className === 'del'){
+        borrarItem(btnTarget);
+        
+    }
+
     //MINIMIZAR BOLSA
     else if (btnTarget.className === 'close-window') {
         guardar(e);
@@ -546,6 +556,13 @@ document.addEventListener('click', e => {
 
     }
 
+    //EDITAR NOMBRE DEPTO
+    if(e.target.className === "nameDepto"){
+        validarEdicionDepto(btnTarget);
+    }
+     
+    
+    
 
 
 
@@ -563,13 +580,13 @@ const sumarCarro=()=>{
 
     }
 
-    console.log(arrayValores);
+    //console.log(arrayValores);
 
     for (const key in arrayValores) {
         arrayValores[key].forEach(element=>sumaTotal+=JSON.parse(element.precio));
     }
     
-    console.log(sumaTotal);
+    //console.log(sumaTotal);
     totalPres.value=sumaTotal;
     
     /*
