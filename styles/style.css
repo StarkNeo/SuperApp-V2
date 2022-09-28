@@ -159,20 +159,15 @@ main{
     /*min-width: 300px;*/
     max-width: 480px;
     max-height: 500px;
+    min-width: 280px;
     background-color: aliceblue;
     z-index: 999;
     overflow-y: auto;
 }
 
-@media only screen and (max-width:490px){
-    .bag{
-        width: 90%;
-        
-    }
-}
 .bag-header{
     display: grid;
-    grid-template: auto auto / 70% 30%;
+    grid-template: auto auto / 66% 34%;
     /*align-items: center;*/
     width: 100%;
     height: auto;
@@ -191,6 +186,23 @@ main{
     border-bottom: 1px solid white;
     
 }
+
+@media only screen and (max-width:490px){
+    .bag{
+        width: 90%;
+        
+    }
+    .bag-header{
+        grid-template: auto auto / 60% 40%;
+    }
+}
+
+@media only screen and (max-width: 420px){
+    .bag-header{
+        grid-template: auto auto / 49% 51%;
+    }
+}
+
 
 label[for*="text"]{
     border-bottom: 1px solid #28ed5c;
@@ -326,6 +338,7 @@ img{
         height: 20%;
         
     }
+    
 }
 
 
