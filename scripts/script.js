@@ -114,8 +114,8 @@ function crearPost(elemento) {
         <input type="checkbox" name="box" class="checkbox">
             <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description" value="${element.nombre}">
             <input type="number" name="price" placeholder="10.5" class="price" min="0" required onchange="sumaPres()" value="${precio}">
-            <button class="add">+</button>
-            <button class="del">-</button>
+            <input type="button" class="add" value='+'/>
+            <input type="button" class="del" value='-'/>
         
         `
         bagItems.appendChild(nvoItem);
@@ -236,8 +236,8 @@ function agregarDepto() {
                 <input type="checkbox" name="box" class="checkbox">
                 <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description">
                 <input type="number" name="price" placeholder="10.5" class="price" min="0" onchange="sumaPres()" value="${valor}" required >
-                <button class="add">+</button>
-                <button class="del">-</button>
+                <input type="button" class="add" value='+'/>
+                <input type="button" class="del" value='-'/>
             </div>
         </div>
     
@@ -434,8 +434,8 @@ const agregarItem = (element) => {
         <input type="checkbox" name="box" class="checkbox">
             <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description">
             <input type="number" name="price" placeholder="10.5" class="price" min="0" required onchange="sumaPres()">
-            <button class="add">+</button>
-            <button class="del">-</button>
+            <input type="button" class="add" value='+'/>
+            <input type="button" class="del" value='-'/>
         `
 
     elementGrand.appendChild(nvoItem);
