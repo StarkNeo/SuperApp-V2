@@ -430,10 +430,11 @@ const agregarItem = (element) => {
     let elementGrand = elementParentClass.parentNode;
     let nvoItem = document.createElement('div');
     nvoItem.className = 'item';
+    let valor=parseFloat(0);
     nvoItem.innerHTML = `
         <input type="checkbox" name="box" class="checkbox">
             <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description">
-            <input type="number" name="price" placeholder="10.5" class="price" min="0" required onchange="sumaPres()">
+            <input type="number" name="price" placeholder="10.5" class="price" min="0" required onchange="sumaPres()" value="${valor}">
             <input type="button" class="add" value='+'/>
             <input type="button" class="del" value='-'/>
         `
