@@ -291,7 +291,15 @@ label[for*="price"]{
 
 }
 
-
+.close-window:hover{
+    transform: translateY(-2px);
+}
+.add-item:hover{
+    transform: translateY(-2px);
+}
+.delete-item:hover{
+    transform: translateY(-2px);
+}
 
 img[src*="trash"]{
     width: 40px;

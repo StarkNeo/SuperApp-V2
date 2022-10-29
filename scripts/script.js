@@ -11,24 +11,23 @@ const borrar_lista = document.getElementById('borrar-local');
 
 let carrito;
 
-//console.log(localStorage.getItem('carrito'));
-/*
-if (localStorage.length != 0) {
-    
-    carrito = JSON.parse(localStorage.getItem('carrito'));
-}
-
-if (localStorage.getItem('bags') != null) {
-    bags = JSON.parse(localStorage.getItem('bags'));
-}
-*/
 if (localStorage.getItem('carrito') === null) {
     carrito = [];
 } else {
     carrito = JSON.parse(localStorage.getItem('carrito'));
+    
 }
 
-//console.log(carrito);
+console.log(carrito);
+
+for (const iterator of carrito) {
+    let lista=iterator.articulos;
+    for (const element in lista) {
+        let orderedList = lista[element];
+        //orderedList.sort();
+        console.log(orderedList);
+    }
+}
 
 class Bolsa {
     constructor(nombre) {
@@ -104,11 +103,35 @@ function crearPost(elemento) {
     let bagItems = document.createElement('div');
     bagItems.className = 'items-min';
     let arrayArticulos = elemento.articulos;
-    //console.log(arrayArticulos);
+    console.log(arrayArticulos);
+    //ORDENAR LA LISTA DE ARTICULOS ORDEN ASCENDENTE
+    let listaOrdenada= arrayArticulos.map(element=>[element.nombre,element.precio]);
+    listaOrdenada.sort();
+    console.log(listaOrdenada);
+    
+    for (let index = 0; index < listaOrdenada.length; index++) {
+        
+        console.log(listaOrdenada[index][0]+" "+listaOrdenada[index][1]);
+        let nvoItem = document.createElement('div');
+        let precio = parseFloat(listaOrdenada[index][1]);
+        let nombre = listaOrdenada[index][0];
+        
+        nvoItem.className = 'item-min';
+        nvoItem.innerHTML = `
+        <input type="checkbox" name="box" class="checkbox">
+            <input type="text" name="text" placeholder="Enter item description Example: 'Almond Milk '" required class="item-description" value="${nombre}">
+            <input type="number" name="price" placeholder="10.5" class="price" min="0" required onchange="sumaPres()" value="${precio}">
+            <input type="button" class="add" value='+'/>
+            <input type="button" class="del" value='-'/>
+        
+        `
+        bagItems.appendChild(nvoItem);
+    }
+    /*
     arrayArticulos.forEach(element => {
         let nvoItem = document.createElement('div');
         let precio = parseFloat(element.precio);
-        //console.log(precio);
+        
         nvoItem.className = 'item-min';
         nvoItem.innerHTML = `
         <input type="checkbox" name="box" class="checkbox">
@@ -119,8 +142,8 @@ function crearPost(elemento) {
         
         `
         bagItems.appendChild(nvoItem);
-    });
-
+    });*/
+    
 
     //seccion footer
     let bagFooter = document.createElement('div');
