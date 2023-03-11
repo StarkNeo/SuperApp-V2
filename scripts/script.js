@@ -279,20 +279,21 @@ function agregarDepto() {
 
 const minimizar = (e) => {
     console.log(e);
-    e.path[2].className = 'bag-min';
+    console.log(e.target.parentNode)
+    e.target.parentNode.parentNode.className = 'bag-min';
     //CAMBIA LA CLASE DEL ENCABEZADO, Y OCULTA LAS ETIQUETAS DESCRIPCION Y PRECIO
-    e.path[2].children[0].className = 'bag-header-min';
-    e.path[2].children[0].children[1].style.display = 'none';
-    e.path[2].children[0].children[2].style.display = 'none';
-    e.path[2].children[1].className = 'items-min';
-    let items = e.path[2].children[1].children;
+    e.target.parentNode.parentNode.children[0].className='bag-header-min';
+    e.target.parentNode.parentNode.children[0].children[1].style.display = 'none';
+    e.target.parentNode.parentNode.children[0].children[2].style.display = 'none';
+    e.target.parentNode.parentNode.children[1].className = 'items-min';
+    let items = e.target.parentNode.parentNode.children[1].children;
     console.log(items);
     for (let index = 0; index < items.length; index++) {
 
         items[index].className = 'item-min';
     }
     //OCULTA EL FOOTER
-    e.path[2].children[2].className = 'bag-footer-min';
+    e.target.parentNode.className = 'bag-footer-min';
     
 
 }
@@ -300,52 +301,57 @@ const minimizar = (e) => {
 
 
 const maximizar = (e) => {
-    
+    console.log(e);
+    console.log(e.target);
+    console.log(e.target.className);
+    console.log(e.target.parentNode);
+    console.log(e.target.children);
     let elementClass = e.target.className;
 
     if (elementClass === 'bag-min') {
-        e.path[0].className = 'bag';
-        e.path[0].children[0].className = 'bag-header';
-        e.path[0].children[0].children[1].style.display = 'flex';
-        e.path[0].children[0].children[2].style.display = 'flex';
-        e.path[0].children[1].className = 'items';
-        let items = e.path[0].children[1].children;
+        e.target.className = 'bag';
+        e.target.children[0].className = 'bag-header';
+        e.target.children[0].children[1].style.display = 'flex';
+        e.target.children[0].children[2].style.display = 'flex';
+        e.target.children[1].className = 'items';
+        let items = e.target.children[1].children;
         
         for (let index = 0; index < items.length; index++) {
 
             items[index].className = 'item';
         }
-        e.path[0].children[2].className = 'bag-footer';
+        e.target.children[2].className = 'bag-footer';
     }
+    
     else if (elementClass === 'nameDepto') {
-        e.path[2].className = 'bag';
-        e.path[2].children[0].className = 'bag-header';
-        e.path[2].children[0].children[1].style.display = 'flex';
-        e.path[2].children[0].children[2].style.display = 'flex';
-        e.path[2].children[1].className = 'items';
-        let items = e.path[2].children[1].children;
+        e.target.parentNode.parentNode.className = 'bag';
+        e.target.parentNode.className = 'bag-header';
+        e.target.parentNode.children[1].style.display = 'flex';
+        e.target.parentNode.children[2].style.display = 'flex';
+        e.target.parentNode.nextSibling.className = 'items';
+        let items = e.target.parentNode.nextSibling.children;
         
         for (let index = 0; index < items.length; index++) {
 
             items[index].className = 'item';
         }
 
-        e.path[2].children[2].className = 'bag-footer';
+        e.target.parentNode.parentNode.children[2].className = 'bag-footer';
     }
-
+    
     else if (elementClass === 'bag-header-min') {
-        e.path[1].className = 'bag';
-        e.path[1].children[0].className = 'bag-header';
-        e.path[1].children[0].children[1].style.display = 'flex';
-        e.path[1].children[0].children[2].style.display = 'flex';
-        e.path[1].children[1].className = 'items';
-        let items = e.path[1].children[1].children;
+        e.target.className = 'bag-header';
+        e.target.parentNode.className = 'bag';
+        e.target.children[1].style.display = 'flex';
+        e.target.children[2].style.display = 'flex';
+        e.target.nextSibling.className = 'items';
+        let items = e.target.nextSibling.children;
         console.log(items);
         for (let index = 0; index < items.length; index++) {
 
             items[index].className = 'item';
         }
-        e.path[1].children[2].className = 'bag-footer';
+        e.target.parentNode.children[2].className = 'bag-footer';
 
     }
 
@@ -382,10 +388,10 @@ const guardarBolsa = (nombre, arreglo) => {
 //FUNCION QUE TOMA LA INFORMACION DE LOS ITEMS PARA CREAR BOLSAS
 
 const guardar = (e) => {
-    console.log(carrito);
-    let bolsaNombre = e.path[2].children[0].children[0].textContent;
+    console.log(e.target.parentNode.parentNode.children[1].children);
+    let bolsaNombre = e.target.parentNode.parentNode.children[0].firstElementChild.innerHTML;
     let valores = [];
-    let bolsaItems = e.path[2].children[1].children;
+    let bolsaItems = e.target.parentNode.parentNode.children[1].children;
     let validar; //VALIDA SI EL CARRITO SE ENCUENTRA VACIO
     let articulos = []; //ARREGLO DE ARTICULOS PARA ACTUALIZACION
     console.log(bolsaNombre);
@@ -469,11 +475,11 @@ const agregarItem = (element) => {
 
 const borrarItem=(e)=>{
         
-        let granParent= e.path[2];
-        let nodeTarget = e.target.parentNode; 
+        let granParent= e.target.parentNode;
+        let nodeTarget = granParent.parentNode; 
         console.log(e);
         console.log(nodeTarget);
-        granParent.removeChild(nodeTarget);
+        nodeTarget.removeChild(granParent);
 }
 
 //FUNCION PARA SUMAR
@@ -505,15 +511,11 @@ const sumaLista = () => {
 
 //FUNCION PARA ELIMINAR UN DEPARTAMENTO
 const eliminar = e => {
-
+    console.log(e)
     //BORRARLO DE LA PAGINA
-    console.log(e);
-    let parent = e.path[2];
-    let granParent = parent.parentNode;
-    granParent.removeChild(parent);
-
+    
     //BORRARLO DEL CARRITO
-    let bagName = e.path[2].children[0].children[0].textContent;
+    let bagName = e.target.parentNode.parentNode.children[0].children[0].textContent;
 
     console.log(bagName);
     for (const key in carrito) {
