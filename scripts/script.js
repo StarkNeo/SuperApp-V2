@@ -79,9 +79,7 @@ const cargarPostits = () => {
 //FUNCION PARA AGREGAR UN DEPARTAMENTO
 
 function crearPost(elemento) {
-    //console.log(elemento);
     let seccion = document.querySelector('.board');
-
     let bag = document.createElement('div');
     bag.className = 'bag-min';
 
